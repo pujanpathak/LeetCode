@@ -1,0 +1,51 @@
+import java.util.HashMap;
+
+public class Main {
+    public static void main(String[] args) {
+        int[] array = {3,2,4,5,6};
+        int[] holder = new int[2];
+        holder = twoSum(array, 9);
+
+        for(int num: holder)
+        {
+            System.out.println(num);
+        }
+    }
+
+    //figure out a way to make a key
+    private static int[] twoSum(int[] nums, int target) {
+        if(nums == null) return null;
+
+        HashMap<Integer, Integer> theNum = new HashMap<>(nums.length); //creating a hasmap
+        int[] theArray = new int[2];
+        int mapSize = nums.length;
+
+
+        for(int i = 0; i < nums.length; i++){
+
+            int holder = target - nums[i];
+            int f = 0;
+            int key = ((holder % mapSize) + (3*f)) % mapSize;
+            System.out.println(key);
+
+            while(theNum.get(key) != null)
+            {
+                System.out.println(key);
+                if(nums[theNum.get(key)] == holder)
+                {
+                    theArray[0] = theNum.get(key);
+                    theArray[1] = i;
+                    return theArray;
+                }
+                else
+                    key = ((holder % mapSize) + 3*(++f)) % mapSize;
+            }
+
+            theNum.put(key, i);
+            //theNum.putIfAbsent(key, i);
+//            if(theNum.get(key) == null)
+//                theNum.put(key, i);
+        }
+        return null;
+    }
+}
